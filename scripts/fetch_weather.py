@@ -4,7 +4,7 @@ import json
 import os
 
 def fetch_weather():
-    print("📡 Fetching weather data...")  # Add this
+    print("📡 Fetching weather data...") 
     API_KEY = os.getenv("WEATHER_API_KEY")
     city = "Islamabad"
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
@@ -22,6 +22,5 @@ def fetch_weather():
 
     print(f"✅ Weather data fetched and saved to {file_path}")
 
-# ✅ Add this so the function actually runs
 if __name__ == "__main__":
     fetch_weather()

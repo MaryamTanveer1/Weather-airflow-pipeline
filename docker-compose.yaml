@@ -1,0 +1,200 @@
+
+
+# services:
+#   airflow-postgres:
+#     image: postgres:15
+#     container_name: airflow_postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: airflow
+#       POSTGRES_PASSWORD: airflow
+#       POSTGRES_DB: airflow
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - airflow_pgdata:/var/lib/postgresql/data
+
+#   airflow-webserver:
+#     image: apache/airflow:2.6.3-python3.9
+#     container_name: airflow_webserver
+#     restart: always
+#     depends_on:
+#       - airflow-postgres
+#     environment:
+#       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+#       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+#       AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+#       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+#       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+#       AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+#       _PIP_ADDITIONAL_REQUIREMENTS: psycopg2-binary
+#       WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+#     ports:
+#       - "8080:8080"
+#     volumes:
+#       - ./dags:/opt/airflow/dags
+#       - ./scripts:/opt/airflow/scripts
+#       - airflow_logs:/opt/airflow/logs
+#     command: webserver
+
+#   airflow-scheduler:
+#     image: apache/airflow:2.6.3-python3.9
+#     container_name: airflow_scheduler
+#     restart: always
+#     depends_on:
+#       - airflow-webserver
+#       - airflow-postgres
+#     environment:
+#       AIRFLOW__CORE__EXECUTOR: LocalExecutor
+#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+#       AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+#       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+#       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+#       WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+#     volumes:
+#       - ./dags:/opt/airflow/dags
+#       - ./scripts:/opt/airflow/scripts
+#       - airflow_logs:/opt/airflow/logs
+#     command: scheduler
+
+# volumes:
+#   airflow_pgdata:
+#   airflow_logs:
+
+
+version: "3.8"
+
+# services:
+#   airflow-postgres:
+#     image: postgres:15
+#     container_name: airflow_postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: airflow
+#       POSTGRES_PASSWORD: airflow
+#       POSTGRES_DB: airflow
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - airflow_pgdata:/var/lib/postgresql/data
+
+#   airflow-webserver:
+#     image: apache/airflow:2.6.3-python3.9
+#     container_name: airflow_webserver
+#     restart: always
+#     depends_on:
+#       - airflow-postgres
+#     environment:
+#       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+#       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+#       AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+#       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+#       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+#       AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+#       _PIP_ADDITIONAL_REQUIREMENTS: psycopg2-binary
+#       WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+#     ports:
+#       - "8080:8080"
+#     volumes:
+#       - ./dags:/opt/airflow/dags
+#       - ./scripts:/opt/airflow/scripts
+#       - ./data:/opt/airflow/data
+#       - airflow_logs:/opt/airflow/logs
+#     command: webserver
+
+#   airflow-scheduler:
+#     image: apache/airflow:2.6.3-python3.9
+#     container_name: airflow_scheduler
+#     restart: always
+#     depends_on:
+#       - airflow-webserver
+#       - airflow-postgres
+#     environment:
+#       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+#       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+#       AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+#       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+#       AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+#       WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+#     volumes:
+#       - ./dags:/opt/airflow/dags
+#       - ./scripts:/opt/airflow/scripts
+#       - ./data:/opt/airflow/data
+#       - airflow_logs:/opt/airflow/logs
+#     command: scheduler
+
+# volumes:
+#   airflow_pgdata:
+#   airflow_logs:
+services:
+  airflow-postgres:
+    image: postgres:15
+    container_name: airflow_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5433:5432"
+    volumes:
+      - airflow_pgdata:/var/lib/postgresql/data
+
+  airflow-webserver:
+    image: apache/airflow:2.6.3-python3.9
+    container_name: airflow_webserver
+    restart: always
+    depends_on:
+      - airflow-postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'false'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
+      WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+      PG_HOST: airflow-postgres
+      PG_PORT: 5432
+      PG_DB: airflow
+      PG_USER: airflow
+      PG_PASSWORD: airflow
+      _PIP_ADDITIONAL_REQUIREMENTS: psycopg2-binary
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/opt/airflow/data
+      - airflow_logs:/opt/airflow/logs
+    command: webserver
+
+  airflow-scheduler:
+    image: apache/airflow:2.6.3-python3.9
+    container_name: airflow_scheduler
+    restart: always
+    depends_on:
+      - airflow-webserver
+      - airflow-postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'dXtHn8nrD-qjIGXZQ-yRu-tKcA6hh0n6Rdeu54tZyOY='
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      WEATHER_API_KEY: 5e720240f860e5cd58ac317864d60dc2
+      PG_HOST: airflow-postgres
+      PG_PORT: 5432
+      PG_DB: airflow
+      PG_USER: airflow
+      PG_PASSWORD: airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/opt/airflow/data
+      - airflow_logs:/opt/airflow/logs
+    command: scheduler
+
+volumes:
+  airflow_pgdata:
+  airflow_logs:

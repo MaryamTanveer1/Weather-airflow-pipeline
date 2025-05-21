@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folder
+venv/
+.env/
+
+# Airflow logs and temp files
+airflow_logs/
+logs/
+tmp/
+
+# Data folders (large files)
+data/
+data/raw/
+data/processed/
+
+# Python environment
+*.egg-info/
+dist/
+build/
+
+# OS files
+.DS_Store
+
+# Ignore IDE files
+.vscode/
+.idea/

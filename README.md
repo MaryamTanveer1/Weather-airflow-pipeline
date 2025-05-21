@@ -38,7 +38,4 @@ The workflow graph for the `weather_pipeline` DAG is included in this repository
 - LocalExecutor is used to balance task parallelism with system resource constraints.
 - Ensure sensitive credentials are managed securely in production environments.
 
----
-
-Feel free to explore the code, suggest improvements, or raise issues!
 

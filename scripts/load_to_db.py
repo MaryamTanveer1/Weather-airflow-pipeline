@@ -3,14 +3,12 @@ import os
 import psycopg2
 
 def load_to_postgres():
-    # Load transformed data
     base_path = "/opt/airflow/data" if os.getenv("AIRFLOW_HOME") else "data"
     transformed_path = os.path.join(base_path, "processed", "weather_transformed.json")
     
     with open(transformed_path, "r") as f:
         data = json.load(f)
 
-    # Connect to PostgreSQL
     conn = psycopg2.connect(
         host=os.getenv("PG_HOST", "localhost"),
         port=os.getenv("PG_PORT", "5432"),
@@ -19,8 +17,6 @@ def load_to_postgres():
         password=os.getenv("PG_PASSWORD", "postgres")
     )
     cur = conn.cursor()
-
-    # Create table if not exists
     cur.execute("""
         CREATE TABLE IF NOT EXISTS weather (
             city TEXT,
@@ -32,7 +28,6 @@ def load_to_postgres():
         );
     """)
 
-    # Insert data
     cur.execute("""
         INSERT INTO weather (city, temperature_celsius, humidity, weather, wind_speed)
         VALUES (%s, %s, %s, %s, %s);

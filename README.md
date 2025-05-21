@@ -28,7 +28,7 @@ This project demonstrates the design and implementation of a modular ETL workflo
 
 The workflow graph for the `weather_pipeline` DAG is included in this repository as `dag_graph.png`.
 
-![Weather Pipeline DAG](dag_graph.png)
+![Weather Pipeline DAG](Dag_graph.png)
 
 ---
 
